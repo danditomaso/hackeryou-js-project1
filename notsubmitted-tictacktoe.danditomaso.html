@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+    <title>Tic Tac Toe game</title>
+    <style>
+        html {
+            font-family: 'Open Sans', sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Open the console</h2>
+    <h3>enter PlayTurn() and press Enter!</h3>
+    <!-- 
+
+    MVP TO DO: 
+    1. Assume size of board to be 3 x 3 squares - DONE
+    1a. print board using template strings with | between them - DONE
+    2. Populate board with numbers for each square - DONE
+    3. Prompt Player X for input - DONE
+    4. Prompt Player O for input - DONE
+    5. Validate square isn't already populated - DONE
+    6. Check currentPlayer 1 or 2 has won - WIP
+    7. Notify currentPlayer of winning - WIP
+
+    NICE TO HAVE: 
+    0. prompt user for size of tic tack toe board 
+    2. Verify input isn't letters - DONE
+    3. flashing text?
+
+
+-->
+
+    <script>
+        // Main game object
+        const game = {
+            board: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+            recordedPlayerIndex: [],
+            XrecordedMove: [],
+            OrecordedMove: [],
+            printBoard: function () {
+                console.clear();
+                console.log(`\n ${this.board[0]} | ${this.board[1]} | ${this.board[2]} \n`);
+                console.log(`\n ${this.board[3]} | ${this.board[4]} | ${this.board[5]} \n`);
+                console.log(`\n ${this.board[6]} | ${this.board[7]} | ${this.board[8]} \n`);
+            }
+        }
+
+        // two dimentional array of winning moves
+        winningMoves = [
+            [game.board[0], game.board[1], game.board[2]],
+            [game.board[3], game.board[4], game.board[5]],
+            [game.board[6], game.board[7], game.board[8]],
+            [game.board[0], game.board[3], game.board[6]],
+            [game.board[1], game.board[4], game.board[7]],
+            [game.board[2], game.board[5], game.board[8]],
+            [game.board[0], game.board[4], game.board[8]],
+            [game.board[2], game.board[4], game.board[6]]
+        ]
+
+        // check who previously played and return either X or O
+        const checkTurn = (currentPlayer) => {
+            if (currentPlayer == 'X') {
+                return currentPlayer = 'O';
+            }
+            else {
+                return currentPlayer = 'X';
+            }
+        }
+
+        const hasWon = (currentPlayer) => {
+
+        }
+
+        const isInputValid = (selectedMove) => {
+            const matchPattern = '/^([1-9])$/gi';
+            if ((/^([0-8])$/.test(selectedMove))) {
+                // alert("match!");
+                return true;
+            }
+            else {
+                // alert("Not a match!");
+                return false;
+            }
+        }
+
+        const isSquareAvailable = (selectedMove) => {
+            if (game.board[selectedMove] === "X" || game.board[selectedMove] == "O") {
+                // alert("square is taken")
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+
+        // Main Function
+        const playTurn = () => {
+            // X always starts game in TicTacToe
+            let currentPlayer = 'X';
+            for (let i = 0; i < 4; i++) {
+                game.printBoard();
+                checkTurn(currentPlayer);
+                let selectedMove = prompt(`Player ${currentPlayer}: Enter number to mark that spot`);
+                // Validate selectedMove returned from prompt - DONE
+                if (isInputValid(selectedMove) === true) {
+                    if (isSquareAvailable(selectedMove) === true) {
+                        if (hasWon(currentPlayer) === true) {
+                            alert(`Player ${currentPlayer} has won the game`)
+                            return;
+                        }
+                        else {
+                            // game.board.forEach(row => {
+                            //     console.log(row[0]);
+
+                            // }
+
+                            // Row 1
+                            for (x = 0; x < winningMoves.length; x++) {
+                                if (winningMoves[x] = currentPlayer) {
+
+                                }
+                                game.board.values
+
+                            };
+                            // Row 2
+
+                            // Row 3
+
+
+                        }
+
+                    }
+                }
+
+
+                else {
+                    alert("That square is already taken by another player");
+
+                }
+            }
+
+        }
+
+        playTurn();
+
+    </script>
+</body>
+
+</html>

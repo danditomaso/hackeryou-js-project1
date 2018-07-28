@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+    <title>Brain Buster - 10 Million Coin Flips - Dan Ditomaso</title>
+    <style>
+        *,
+        *:after,
+        *:before {
+            box-sizing: border-box;
+
+        }
+
+        html {
+            font-family: 'Open Sans', sans-serif;
+            text-align: center;
+            letter-spacing: 1.25;
+        }
+
+        body {
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2)), url('https://images.pexels.com/photos/9660/business-money-pink-coins.jpg?auto=compress&cs=tinysrgb&dpr=2&h=800&w=600') no-repeat center;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
+
+        button {
+            background: #808080;
+            border: solid;
+            border-radius: 8px;
+            padding: 10px;
+            border: 0;
+            color: white;
+            font-size: 18px;
+        }
+
+        input[type=text],
+        label {
+            border: none;
+            font-size: 20px;
+            width: 100px;
+            margin-top: 20px;
+            margin-right: 25px;
+        }
+
+        h1 {
+            color: #333;
+            /* margin: 30px 100px 100px; */
+            text-shadow: 0 3px 0 rgba(0, 0, 0, 0.07);
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>10 Million Coin Flips</h1>
+    <form action="">
+        <div class="button-group">
+            <button id="button" class="submit-btn" type="submit">Run Coin Flip Calculator</button>
+            <button id="button" class="reset-btn" type="reset">Reset</button>
+        </div>
+        <!-- <div class="input-group">
+            <label for="highestheads">Highest Heads:</label>
+            <input type="text" class="highestheads" name="highestheads" readonly>
+            <label for="lowestheads">Lowest Heads:</label>
+            <input type="text" name="lowestheads" class="lowestheads" readonly>
+            <label for="highesttails">Highest Tails:</label>
+            <input type="text" class="highesttails" name="highestheads" readonly>
+            <label for="lowesttails">Lowest Tails:</label>
+            <input type="text" name="lowesttails" class="lowesttails" readonly>
+        </div> -->
+    </form>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+    <script>
+        // Basic flip function
+        let flip = () => {
+            let flipResult = Math.floor(Math.random() * 2);
+            if (flipResult >= .5) {
+                return 0; // 0 equals Heads
+            }
+            return 1; // 1 equals Tails
+        }
+        // Calculate flip results function and store result
+        let manyFlip = () => {
+            let headsCount = 0;
+            let tailsCount = 0;
+            const flipResults = {
+                headsCount: 0,
+                tailsCount: 0,
+            };
+            for (let i = 0; i < 100; i++) {
+                let flipResult = flip();
+                if (flipResult == 0) {
+                    headsCount++;
+                }
+                else {
+                    tailsCount++;
+                }
+            }
+            // console.log(headsCount, tailsCount);
+            flipResults.headsCount = headsCount;
+            flipResults.tailsCount = tailsCount;
+            return flipResults;
+        }
+        // Calculate the iterations and store in superFlipResults 
+        let flipSuperFlip = () => {
+            let userInput = prompt("How many coin flip iterations do you want to execute?")
+            alert("Check the console for the results")
+            console.log("Starting...");
+            // let iterations = 1000;
+            let headsMax = 0;
+            let tailsMax = 0;
+            let headsMin = 0;
+            let tailsMin = 0;
+
+            for (let x = 0; x < userInput; x++) {
+                const flipResults = manyFlip();
+                if (flipResults.headsCount > headsMax) {
+                    headsMax = flipResults.headsCount;
+                    // console.log(headsMax);
+
+                }
+                if (flipResults.tailsCount > tailsMax) {
+                    tailsMax = flipResults.tailsCount;
+                    // console.log(tailsMax);
+
+                }
+                if (flipResults.headsCount < headsMin || headsMin == 0) {
+                    headsMin = flipResults.headsCount;
+                    // console.log(headsMin);
+                }
+                if (flipResults.tailsCount < tailsMin || tailsMin == 0) {
+                    tailsMin = flipResults.tailsCount;
+                    // console.log(tailsMin);
+                }
+            }
+            console.log(`Highest Heads: ${headsMax} Lowest Heads: ${headsMin}`);
+            console.log(`Highest Tails: ${tailsMax} Lowest Heads: ${tailsMin}`);
+        }
+
+
+    </script>
+    <script>
+        // Set values from flipSuperFlip function to get these values
+        $(document).ready(function () {
+
+            $('.submit-btn').on('click', function () {
+                flipSuperFlip();
+                event.preventDefault();
+                // $('.highestheads').val(headsMax);
+                // $('.lowestheads').val(headsMin);
+                // $('.highesttails').val(tailsMax);
+                // $('.lowesttails').val(tailsMin);
+            });
+
+        });
+    </script>
+
+
+</body>
+
+</html>
